@@ -200,7 +200,7 @@ In this section, you will need to edit files on the command line. There are seve
 Start by making a tab delimited file with three columns: sampleID, fastqFile1, fastqFile2
 A sample first line is included here:
 ```{}
-iPSC_input  input_iPSC_SRA66_1.fastq.gz  input_iPSC_SRA66_2.fastq.gz
+iPSC_input  input_iPSC_SRA66_subset_1.fastq.gz  input_iPSC_SRA66_subset_2.fastq.gz
 ```
 This will be the list of tasks you want to accomplish. 
 
