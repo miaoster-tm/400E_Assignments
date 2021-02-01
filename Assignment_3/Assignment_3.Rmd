@@ -117,7 +117,7 @@ Now that you have proven that the longest read length yields the highest number 
 ```{bash, eval=FALSE}
 ## Using the following files: 
 # /usr/local/share/data/assignment_3/H3K27me3_iPSC_SRA60_subset_1_LEN_25.fastq.gz
-# /usr/local/share/data/assignment_3/H3K27me3_iPSC_SRA60_subset_1_LEN_25.fastq.gz
+# /usr/local/share/data/assignment_3/H3K27me3_iPSC_SRA60_subset_2_LEN_25.fastq.gz
 ## And the index of the hg38 genome build: 
 ## /usr/local/share/indexes/hg38_bowtie2_index
 #?# Perform a paired-end (PE) analysis, type the command you used below: - 0.5 pt
