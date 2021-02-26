@@ -99,7 +99,7 @@ While exploring the bigwig files of the epigenetic marks on IGV, you probably no
 # H3K27ac_norm.bw
 
 
-## The deepTools ** computeMatrix reference-point ** command calculates scores to represent the reads mapping to specified regions of the genome across different files. 
+## The deepTools ** computeMatrix scale-regions** command calculates scores to represent the reads mapping to specified regions of the genome across different files. 
 ## Use computeMatrix to compute a matrix for the signal tracks for each histone modification outlined above (which we will use to create a plot in the following step), with the following criteria: 
 
 ## - We will use the regions in reference_genes.bed located under the /usr/local/share/data/assignment_5/ directory as the basis for the plot.
