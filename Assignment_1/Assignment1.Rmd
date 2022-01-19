@@ -300,7 +300,7 @@ script /dev/null
 screen -S background_screen_name 
 
 # 4. Run the process and any commands you wish
-wc -l usr/local/share/data/assignment_1/SRR12506919_1_subset.fastq
+wc -l /usr/local/share/data/assignment_1/SRR12506919_1_subset.fastq
 
 # 5. Get out of the background screen, you will need to type the following:
 ctrl + A + D 
