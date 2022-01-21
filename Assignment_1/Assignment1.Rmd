@@ -290,8 +290,8 @@ script /dev/null
 # 3. Start a background process with a specific name 
 screen -S background_screen_name 
 
-# 4. Run the process and any commands you wish
-wc -l usr/local/share/data/assignment_1/SRR12506919_1_subset.fastq
+# 4. Run the process and any commands you wish, for example:
+wc -l /projects/bmeg/A1/input_iPSC_SRA66_subset_1.fastq
 
 # 5. Get out of the background screen, you will need to type the following:
 ctrl + A + D 
@@ -321,7 +321,7 @@ Another way to check on the progress of your runs and the server status is with 
 
 ### d. Genome indexing - bowtie2
 
-Now, we will need to create an index of the human genome that bowtie2 will use to map our sequences in the genome. In order to do this, you will need to use the previously downloaded files of the human genome with the desired build (e.g. hg19,hg38), you can find those files within the server here: */usr/local/share/human/*
+Now, we will need to create an index of the human genome that bowtie2 will use to map our sequences in the genome. In order to do this, you will need to use the previously downloaded files of the human genome with the desired build (e.g. hg19,hg38), you can find those files within the server here: */projects/bmeg/indexes/*
 
 **BEFORE RUNNING ANYTHING**: go to the "Other resources" section at the end of the assignment!
 
