@@ -410,4 +410,4 @@ Indexes take a lot of computational resources and time to run. The one we need f
 
 ### b. Other
 
-You can get up to 20 points, if you answer all the questions correctly. Make sure to consult the resources given through the assignment, they are meant to make the assignment easier. 
+Make sure to consult the resources given through the assignment, they are meant to make the assignment easier. 
