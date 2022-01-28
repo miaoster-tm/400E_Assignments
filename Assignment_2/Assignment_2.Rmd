@@ -1,5 +1,5 @@
 ---
-title: "BMEG 400E: Assignment 2 KEY"
+title: "BMEG 400E: Assignment 2"
 output:
   html_document:
     toc: true
