@@ -58,7 +58,7 @@ ChIP-seq experiments require a control against which to compare the ChIP signnal
 ## Use the bamCoverage command (included in deepTools) to convert the bam files outlined below (located in the /projects/bmeg/A5/ directory) into bigwig files that represent the read coverage (e.g. density of reads across the genome). Each file has already been indexed using sambamba and hence, has it's bam index (.bai) file associated that you will need to run bamCoverage. 
 ## Tip: Remember to add the .bw extension to your specified output! 
 
-#?# Type the commands you use for converting each of the four bam files to bigwig files - 2 pts
+#?# Type the commands you use for converting each of the 4 bam files to bigwig files - 2 pts
 ## input_chr3_subset.bam
 
 
@@ -77,7 +77,7 @@ ChIP-seq experiments require a control against which to compare the ChIP signnal
 ## 1. Copy the bigwig files from the previous steps to your computer 
 
 ## 2.Load all the files bigwig signal track files onto IGV on your local computer, select the "autoscale" option for each file on their individual tracks
-## Tip, use the "File" tab to "load from file" option to choose the files from your computer directories
+## Tip: use the "File" tab to "load from file" option to choose the files from your computer directories
 
 ## 3. Change the visualization of the files to see the following position: ** chr3:93,470,124-93,471,058 **
 #?# Include a screenshot of your IGV session right after this code chunk (using the Rmarkdown syntax)  - 2 pt
@@ -100,7 +100,7 @@ ChIP-seq experiments require a control against which to compare the ChIP signnal
 
 ## 2. Narrow vs Broad peaks 
 
-While exploring the bigwig files of the epigenetic marks on IGV, you probably noticed that they can look very different from each other and some of them ressemble the input more closely than others. Different epigenetic marks can have very different signatures based on their distribution patterns across the genome. When calling peaks, we often lump these into two different categories of reads: broad and narrow. Active transcription marks (H3K4me3 and H3K27ac) tend to form a sharper coverage peaks at transcription start sites (H3K27ac is also at enhancers), while repression marks cover a broader area (H3K27me3). Here, we're going to inspect their distributions relative to genes.
+While exploring the bigwig files of the epigenetic marks on IGV, you probably noticed that they can look very different from each other and some of them reassemble the input more closely than others. Different epigenetic marks can have very different signatures based on their distribution patterns across the genome. When calling peaks, we often lump these into two different categories of reads: broad and narrow. Active transcription marks (H3K4me3 and H3K27ac) tend to form a sharper coverage peaks at transcription start sites (H3K27ac is also at enhancers), while repression marks cover a broader area (H3K27me3). Here, we're going to inspect their distributions relative to genes.
 
 ```{bash, eval=FALSE}
 
@@ -215,7 +215,7 @@ Macs2 calls the peaks by analyzing the enrichments of sequences in the genome co
 ![](peaks_summary.png)
 
 
-## c. Peak enrichments
+### c. Peak enrichments
 
 For this assignment, we are working with 3 different epigenetic marks: H3K4me3, H3K27me3 and H3K27ac. Each of these marks a different transcription state (i.e., activation or repression). Thus, to better visualize the differences in the called peaks for each of these epigenetic marks you will create a heatmap plot (like the one you created on part 2) using their called peaks files (.narrowPeak or .broadPeak). 
 
@@ -251,4 +251,21 @@ For this assignment, we are working with 3 different epigenetic marks: H3K4me3, 
 #?# Why do you think the borders of the elements have such clearly-defined borders with respect to the ChIP signal? -1 pt
 
 ```
+
+
+
+
+# Assignment submission
+
+Please knit your Rmd file to *github_document* and include the link to the .md file in your Canvas submission.
+
+
+# Authors and contributions
+
+Following completion of your assignment, please fill out this section with the authors and their contributions to the assignment.  If you worked alone, only the author (e.g. your name and student ID) should be included.
+
+Authors: Name1 (studentID1) and Name2 (studentID2)
+
+Contributions: (example) N1 and N2 worked together on the same computer to complete the assignment. N1 typed for the first half and N2 typed for the second half. 
+
 
