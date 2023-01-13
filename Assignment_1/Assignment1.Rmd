@@ -206,7 +206,7 @@ Conda is a package and environment manager (*https://docs.conda.io/en/latest/*).
 
 ## 1. Move to your home directory 
 
-#?# 2. Use the wget command to get the following file: https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-x86_64.sh
+#?# 2. Use the wget command to get the following file: https://repo.anaconda.com/archive/Anaconda3-2022.10-Linux-x86_64.sh
 
 
 ## The file extension .sh pertains to a bash script, the script you just downloaded contains all the instructions needed to install Conda to your home directory
