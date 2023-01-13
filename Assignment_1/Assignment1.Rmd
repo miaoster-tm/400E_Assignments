@@ -26,13 +26,18 @@ This assignment has 3 main goals:
   
   4. Cleaning your folder and uploading your assignment to Github
 
+In the future, we will use these assignment Rmd files for R code. For now, we're using an Rmd file but without any R code just to keep things consistent. You can include bash code here too.
 
-IMPORTANT: Every time you see *#?#* means, that's a question you need to answer, with a command or with an interpretation of the data. When an instruction follows #?# you need to type the command you used to complete the task. Please make sure to check for them and answer them all, as this is how your assignment will be graded. 
+IMPORTANT: Every time you see *#?#* represents a blank you need to complete; the answer to a question we have asked you. Complete them with a command, code, or a written explanation (e.g. interpretation of the data) as appropriate.  Please make sure to answer all prompts, as this is how your assignment will be graded. 
 
 
 ## 1. Getting Familiar with the Server
 
-For our course we will be using a server based on a Docker/Linux system. This will be the place where you are gonna do the on-class practices and the assignments. There are a couple of things that you need to be aware while working on the server. The server has limited storage and computer power. Therefore, you will be required to be mindful of the processes you run as well as the files you keep. 
+For our course we will be using a server based on a Docker/Linux system. This will be the place where you will do your assignments and project. There are several things that you need to be aware while working on the server. The server has limited storage and computer power. Therefore, you will be required to be mindful of the processes you run as well as the files you keep. In general, files that are uncompressed (e.g. fastq, sam) should either be compressed or deleted (more on that later) to ensure we don't run out of space. If we do run out of space, no one will be able to write new data to disk, which will halt all progress until space clears up.
+
+### I think you can skip this next part
+
+We used to have to use the VPN to access this server. I tried just now without and it seemed to connect just fine. Using the VPN anyway will not hurt anything, so feel free to do this step if you like. Please let us know if you find that you cannot connect without it.
 
 To join the server you will need to be on an active connection of a UBC Virtual Private Network (VPN). If you do not have one already, you can check how to install it here: *https://it.ubc.ca/services/email-voice-internet/myvpn/setup-documents*. Once the VPN has been set, you will need to open a terminal. 
 
@@ -50,7 +55,7 @@ Now that you have successfully joined the server, let's get you used to some bas
 
 ### a. Check a directory's path 
 
-When using terminal, paths work as the addresses of the files and directories you want to access and easily move between them. Once you have logged into the server you will be in your *home directory*.
+When using terminal, paths represent the addresses of the files and directories on the system. You can use paths to access files and move between directories. Once you have logged into the server you will be in your *home directory*. Below, you will be asked for commands and their output but without being told what commands to use. Make sure you understand the question and use Google or a linux/bash tutorial to help answer the questions. You can also get more information about a program by either typing `man <program>` or `<program> -h` (sometimes -h is -? --? --h --help -help), where `<program>` is the program you want to learn more about.
 
 ```{bash, eval=FALSE}
 #?# Check your current directory's path: 0.5 pt
@@ -64,13 +69,13 @@ When using terminal, paths work as the addresses of the files and directories yo
 
 ```{bash, eval=FALSE}
 
-#?# On your home directory create a new directory (folder) - 1pt
-## This folder will host the files created throughout this assignment 
+#?# In your home directory create a new directory for assignment 1 (on some systems these are known as "folders") - 1pt
+## This directory will host the files created throughout this assignment 
 
 
 ```
 
-*Note:* Generally speaking, is good to follow naming convention when using the terminal. Remember: 
+*Note:* Generally speaking, is good to follow a consistent naming convention when using the terminal. Remember: 
 
   - Do not start a name with a number
 
@@ -80,7 +85,7 @@ When using terminal, paths work as the addresses of the files and directories yo
 
   - Use _ or - to replace spaces
 
-  - File extensions are meaningful for us to know the file format but in terminal you can use it as part of the file name. Ex: you will be able to open a .sequences file that has tab delimited information
+  - File extensions are meaningful for us to know the file format but generally have no effect on the file's function in linux, unlike in Windows where a .docx extension, for example, tells the operating system to open the file in Word. In linux, generally you specify what program to use yourself and so you can make the extension anything you want. e.g. you could rename your .fastq file to .oogabooga and it would work the same (although some programs check to make sure that the extension is correct and so might complain about it, but you can just name it back).
   
   
 
@@ -100,7 +105,7 @@ How would you move back to your home directory (*/home/your_user_name*)?
 
 ```{bash, eval=FALSE}
 
-#Check the tutorial: https://www.computerhope.com/unix/ucd.htm 
+#hint: Check the tutorial: https://www.computerhope.com/unix/ucd.htm 
 
 #?# Using the complete directory path of your home directory: - 0.25 pt
 
@@ -112,7 +117,7 @@ How would you move back to your home directory (*/home/your_user_name*)?
 
 ### d. Explore the dataset 
 
-The sequencing data that we will be using is paired-end. This means that each sequence has been sequenced twice, one on each end (5' and 3'). Choose **one** of the reads files (1 or 2) for the following exercises.
+The sequencing data that we will be using is paired-end. This means that each DNA fragment has been sequenced twice, one from each end. Both are read in the 5' to 3' direction but read 2 is in the reverse complement orientation relative to read 1. Choose **one** of the reads files (1 or 2) for the following exercises.
 
 
 ```{bash, eval=FALSE}
@@ -128,13 +133,29 @@ The sequencing data that we will be using is paired-end. This means that each se
 
 ```
 
-### e. Piping 
-
-Because this is a very large dataset we will proceed to subset it in order to make it more manageable for the assignment. Using the commands that you learned above:
+Typically, fastq files would be compressed, typically using `gzip`.
 
 ```{bash, eval=FALSE}
 
-#?# How many lines does the file was in total? - 0.25
+#?# Compress one of the fastq files (from its original location) as a .fastq.gz within your assignment directory using gzip - 0.5
+
+
+#?# Try running `zmore <file>.fastq.gz` on the file you just made. What does this command do? - 0.5
+
+#?# How much space do the compressed and uncompressed fastqs take? - 0.5
+
+
+```
+
+
+
+### e. Piping 
+
+Because this is a very large dataset we will subset it in order to make it more manageable in size. This is just for the purposes of the assignment. Typically, you would use the whole file for your genomic analysis. As always, include both commands and the output.
+
+```{bash, eval=FALSE}
+
+#?# How many lines does the uncompressed fastq file have in total? - 0.25
 #Tip: loop at the *wc* command documentation
 
 
@@ -142,11 +163,6 @@ Because this is a very large dataset we will proceed to subset it in order to ma
 ## Tip: look at the *grep* command
 
 #?# How many reads are in the file (i.e., how many id lines are in the file)? - 1 pt
-## Tip: Try using * | head * after the command line you use for the previous question
-
-
-#?# Select only the reads id (e.g. @SRR12506919.667552) from the id lines - 1 pt
-## Tip: Look into the *cut* command. Carefully read the default delimiter, is it the case for our file?
 
 
 ```
@@ -157,14 +173,8 @@ Because this is a very large dataset we will proceed to subset it in order to ma
 
 ```{bash, eval=FALSE}
 
-#?# Save a file that contains only the reads ids (the result of our previous exercise). - 0.5 pt
+#?# Create a file that contains only the reads id lines (the result of our previous exercise). - 0.5 pt
 
-
-#?# Now, list all the files in a directory: 
-
-
-#?# What do you see? Was the subset file created correctly? - 0.25 pt
-## ----
 
 ```
 
