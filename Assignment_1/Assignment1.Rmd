@@ -246,18 +246,13 @@ To install them, we will be making use of the conda environments. Conda allows y
 
 ### b. Add programs to your conda environment
 
-Now that the environment has been created, its time to add the packages that we will need. Conda has an active community and a great documentation (*https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html*) which you can use throughout the course to help answer any questions you may have. 
+Now that the environment has been created, it's time to add the packages that we will need. Conda has an active community and a great documentation (*https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html*) which you can use throughout the course to help answer any questions you may have. Googling "<tool> conda package" is a great way to find the tools you need. They often lie on different repositories, including bioconda.
 
 
 ```{bash, eval=FALSE}
 
-#?# Add fastQC bowtie2 to your conda environment: - 1 pt
+#?# Add htop, screen, fastQC, samtools, and bowtie2 to your conda environment: - 3 pt
 
-## Run the following command to install samtools onto your conda environment:
-
-#?# Add screen to your conda environment: - 1pt 
-
-#?# Add htop to your conda environment: - 1pt
 
 
 ```
@@ -267,7 +262,7 @@ Now that the environment has been created, its time to add the packages that we 
 
 ### a. Data quality check
 
-We will use the widely used fastQC software to do a quick inspection of the data quality. Once it has ran, it will give you an html report of the quality of the data, that you can open using a web browser. More information on how to read the output can be found here: *https://dnacore.missouri.edu/PDF/FastQC_Manual.pdf* and in the tool's website.
+We will use fastQC to do a quick inspection of the data quality. Once it has run, it will give you an html report of the quality of the data that you can open using a web browser. More information on how to read the output can be found here: *https://dnacore.missouri.edu/PDF/FastQC_Manual.pdf* and in the tool's website.
 
   
 ```{bash, eval=FALSE}
@@ -276,9 +271,9 @@ We will use the widely used fastQC software to do a quick inspection of the data
 
 ## In order to open the html files on your web browser you will need to download the files to your computer
 ## Ubuntu/Linux and Mac users: look at the *scp* command
-## Windows users: follow the following instructions: https://stackoverflow.com/questions/6217055/how-can-i-copy-a-file-from-a-remote-server-to-using-putty-in-windows
+## Windows users, this varies by what program you are using to connect (e.g. putty, winSCP, MobaXTerm). E.g. see: https://stackoverflow.com/questions/6217055/how-can-i-copy-a-file-from-a-remote-server-to-using-putty-in-windows
 
-#?# What can you say about the data quality? - 2 pt 
+#?# What can you say about the data quality? Are there any areas of concern? If so, what could explain what you are seeing? Does read 1 or read 2 have better sequencing quality? Is this expected? - 4 pt 
 # ---
 
 ```
@@ -286,7 +281,7 @@ We will use the widely used fastQC software to do a quick inspection of the data
   
 ### b. Running a process on the background: screen 
 
-The processes that we are about to run, can take a long time to finish. Thus, we will make use of the *screen* tool, which allows you to run a process in the background while continue using your server session without the risk of ending the process due to a bad internet connection, accidentally closing the tab or other random circumstances. 
+The processes that we are about to run can take a long time to finish. Thus, we will make use of the *screen* tool, which allows you to run a process in the background while continue using your server session without the risk of ending the process due to a bad internet connection, accidentally closing the tab, or other random circumstances. 
 
 ```{bash, eval=FALSE}
 
@@ -318,7 +313,7 @@ exit
 
 ### c. Checking the server capacity and your current runs: htop
 
-Another way to check on the progress of your runs and the server status is with the *htop* command. This will open a screen showing all the processes that are being currently being run in the server. Our server only has 2 cpu's/cores, the green bar next to each code, represents how much of that node it is currently in use. Always make sure to check the processes that are being run before sending yours.
+Another way to check on the progress of your runs and the server status is with the `htop` command. This will open a screen showing all the processes that are currently being run on the server. Our server has 40 CPU cores, shown at the top, illustrating how much of the node is currently in use. Always make sure to check the processes that are being run before sending yours.
 
 ```{bash, eval=FALSE}
 
@@ -342,12 +337,11 @@ Now, we will need to create an index of the human genome that bowtie2 will use t
 ## Try running: 
 bowtie2 -h 
 
-## IMPORTANT!!!!
-## BEFORE RUNNING: go to the "Other resources" section at the end of the assignment!!
-## __________________________________________________________________________________
-#?# Use the hg38 build to create an index of the human genome with bowtie2
-## Tip: look into the bowtie2-build help (bowtie2-build --help)  - 1.5 pt
 
+
+#?# Write a command that will build a bowtie2 index from the hg38 genome sequence using the fasta file containing the human genome sequence (/projects/bmeg/indexes/hg38/hg38.fa) - 1.5 pt
+## Tip: look into the bowtie2-build help (bowtie2-build --help) 
+## Indexes take a lot of computational resources and time to run. The one we need for the human genome will take around 3 hours to be done, and so you do not need to actually run it to completion. Just include the command.
 
 
 ```
@@ -355,7 +349,7 @@ bowtie2 -h
 ### e. Alignment
 
 We are working with paired-end data. Thus, you will need to make sure to use both fastq files to align the sequences to the genome.
-**IMPORTANT:** Run with *default parameters* DO NOT specify any non-essential paramaters.
+**IMPORTANT:** Run with *default parameters* to the extent possible. DO NOT specify any non-essential paramaters.
 
 **Time flag**: This step will take up to 30 mins 
 
@@ -383,7 +377,7 @@ Now, we will make use of **samtools** to review some basic features of the align
 #?# Number of mapped reads - 1 pt
 
 
-#?# Mumber of unmapped reads - 1 pt
+#?# Number of unmapped reads - 1 pt
 
 
 
@@ -394,22 +388,29 @@ Now, we will make use of **samtools** to review some basic features of the align
 
 ### a. Cleaning your folders
 
-Before signing up, we need to make sure that we won't leave behind any big files that can take up a lot of memory from our server. To do this, make sure to:
+Before signing off, we need to make sure that we don't leave behind any big files that can take up a lot of memory from our server. This is important as if we run out of disk space, others will be unable to complete their work. 
+  
+** If we run out of disk space, we will see who is using up space unnecessarily and deduct marks from them in proportion to the space wasted. **
+  
+To do clean up, make sure to:
 
-  a. Delete any copies of the input assignment files you might have done on your personal folder
+  a. Delete any copies of the input assignment files you might have your personal folder
 
-  b. Zip or delete all the files used for the assignment 
+  b. Zip or delete all the unneeded files created for the assignment. 
 
 
 ### b. Uploading to Github
 
   1. Make sure to create a Github account of your own. 
 
-  2. Once you have set it up, create a new public repository for the course. 
+  2. Once you have set it up, create a new private repository for the course. 
 
   3. Use the "upload file" option to upload your assignment Rmd to the website. 
 
   4. Upload the link of your github repository where the assignment file is located onto Canvas
+  
+  5. Share with GitHub users @Carldeboer and @BMEGGenoInfo
+
 
 
 
@@ -422,14 +423,3 @@ Authors: Name1 (studentID1) and Name2 (studentID2)
 Contributions: (example) N1 and N2 worked together on the same computer to complete the assignment. N1 typed for the first half and N2 typed for the second half. 
 
 
-
-## Other Resources
-
-### a. Bowtie2 index
-
-Indexes take a lot of computational resources and time to run. The one we need for the human genome will take around 3 hours to be done. ***DO NOT RUN THE INDEX COMMAND***. Go on to the next step, using the previously run index: *hg38_bowtie2_index* under the following path: */projects/bmeg/indexes/*
-
-
-### b. Other
-
-Make sure to consult the resources given through the assignment, they are meant to make the assignment easier. 
