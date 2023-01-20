@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Assignment Overview
 
-For this assignment we will be using data from a Chromatin Immunoprecipitation sequencing (ChIP-seq) produced by Choi, Won-Young, et al., (2020). *https://pubmed.ncbi.nlm.nih.gov/33293480/*. This data is part of a series of experiments that aimed to understand the chromatin changes that happen when an induced Pluripotent Stem Cell (iPSC) undergo differentiation towards a Neuronal Progenitor Cell (NPC). The **fastqc** files from this experiment have been pre-downloaded and added to the server, under the following path: **/projects/bmeg/A1/**. The datasets that we will be using for the assignment are in a shared *reading only* location that you can read but ARE NOT allowed to alter. 
+For this assignment we will be using data from a Chromatin Immunoprecipitation sequencing (ChIP-seq) produced by Choi, Won-Young, et al., (2020). *https://pubmed.ncbi.nlm.nih.gov/33293480/*. This data is part of a series of experiments that aimed to understand the chromatin changes that happen when an induced Pluripotent Stem Cell (iPSC) undergos differentiation towards a Neuronal Progenitor Cell (NPC). The **fastqc** files from this experiment have been pre-downloaded and added to the server, under the following path: **/projects/bmeg/A1/**. The datasets that we will be using for the assignment are in a shared *read only* location that you can read but cannor alter. 
 
 This assignment has 3 main goals: 
 
