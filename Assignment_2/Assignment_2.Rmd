@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Assignment Overview 
 
-The goal of this assignment is to walk you through the process of creating a pipeline. For this, we will be analyzing the data from the same research article as last time (*https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7772509/*) by Choi, Won-Young, et al. (2020). This research group was looking at how different epigenetic marks changed in an induced Pluripotent Stem Cell (iPSC) when it was differentiated towards a Neuronal Progenitor Cell (NPC). For this assignment, we will be looking at one histone mark (H3K27me3) and its behavior in iPSCs. This data was created by looking at Chromatin Immunoprecipitation sequencing data (ChIP-seq) using an antibody against the H3K27me3 to sequence only the DNA that attached to the epigenetic mark. Then, we can use this data to find out where H3K27me3 marks are located in the genome by mapping the ChIP-seq reads to the genome. However, to make sure we are seeing a true enrichment of a region, we need a control to compare to. This control is called the *input*, which is usually essentially the same proceedure as was applied to the ChIP-seq sample, but with the immunoprecipitation step skipped. By comparing the input to the ChIP data, we can distinguish between noise and true enrichements. For this assignment, we will be finding how H3K27me3 changes when iPSCs undergo differentiation. All fastq files are paired-end and can be found under the following path:**/projects/bmeg/A2/**. As always, remember not to copy these files to your directory or try to alter them in any way!
+The goal of this assignment is to walk you through the process of creating a pipeline. For this, we will be analyzing the data from the same research article as last time (*https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7772509/*) by Choi, Won-Young, et al. (2020). This research group was looking at how different epigenetic marks changed in an induced Pluripotent Stem Cell (iPSC) when they are differentiated to Neuronal Progenitor Cells (NPCs). For this assignment, we will be looking at one histone mark (H3K27me3) and its behavior in iPSCs. This data was created using Chromatin Immunoprecipitation sequencing data (ChIP-seq), using an antibody against the H3K27me3 histone mark to sequence only the DNA that attached to the epigenetic mark. Then, we can use these data to find out where H3K27me3 marks are located in the genome by mapping the ChIP-seq reads to the genome. However, to make sure we are seeing a true enrichment of a region, we need a control to compare to. This control is called the *input*, which is usually essentially the same proceedure as was applied to the ChIP-seq sample, but with the immunoprecipitation step skipped. By comparing the input to the ChIP data, we can distinguish between noise and true enrichements. For this assignment, we will find how H3K27me3 changes when iPSCs undergo differentiation. All fastq files are paired-end and can be found under the following path:**/projects/bmeg/A2/**. As always, remember not to copy these files to your directory or try to alter them in any way!
 
 For iPSC:
 
@@ -46,21 +46,21 @@ We will not be using the NPC data in this assignment.
 
 ## Before we get started
 
-Before we get started we will assume that you have successfully created a Github repository that will host all your future assignments. For this assignment make sure to create a new file under the same repository so that you don't need to make a new one. You can just make a new subdirectory. At the end, all you should need to do is the standard "commit, pull, push" actions when you are done the assignment. If you make a new one, remember to keep it private and add this accound as a collaborator.
+Before we get started we will assume that you have successfully created a Github repository that will host all your future assignments. For this assignment, make sure to create a new file under the same repository so that you don't need to make and share a new one (unless you have a new partner, in which case make and share a new one). You can just make a new subdirectory. At the end, all you should need to do is the standard "add, commit, pull, push" actions when you are done the assignment. Always ensure your files made it to GitHub. If you make a new repo, remember to keep it private and add this accound as a collaborator.
 
 
 All the questions that need to be answered with a command or a written response, from now on, will be marked with **#?#** and be followed by the grading of the question. 
 
 
-Remember to read carefully each step and to use the tips only as tips and should not be used as instructions on how to do things! You are welcome to use other tools and commands you feel more comfortable with **as long as you explain your thought process and show that you reached the same goal**. Also remember to pay attention to the error messages and try to understand what is it saying, Google it and try a few things by yourself! Most of the times looking at the tools documentation would solve it. As a final note, these tools can be daunting, so don't go into any rabbit holes, less is more, you won't need to modify any of the default parameters, just make sure you are getting using the right input and output files. Okay, let's start!
+Remember to read carefully each step and to use the tips only as tips; these are not instructions on how to do things! You are welcome to use other tools and commands you feel more comfortable with **as long as you explain your thought process and show that you reached the same goal**. Also remember to pay attention to the error messages and try to understand what they are saying, Google the tool name and error message. Looking at the tool's documentation can also solve it. 
 
 
-**This assignment has 3 main goals:**
+**This assignment has 2 main goals:**
 
-  1. To go through *steps a-e* for the **input data**
+  1. Create a "specific" pipeline that works for the **input data** by walking through *steps a-e* (as above, but your answers will go below).
 
 
-  2. To create a pipeline that does a-e automatically for the **H3K27me3 data**
+  2. Create a "generic" pipeline that does a-e automatically for the any sequencing dataset, and run it on the **H3K27me3 data**
 
 
 ## 0. Getting the right tools 
@@ -69,7 +69,7 @@ As you might have seen on the overview we will be using lots of new tools today.
 
 ```{bash, eval=FALSE}
 
-#?# Add sambamba to your conda environment created on assignment 1 - 1pt
+#?# Add sambamba to the conda environment created in assignment 1 - 0.5 pt
 
 
 
@@ -103,8 +103,6 @@ Similarly to the last assignment, we need to make sure that the data has a good 
 
 
 ## NOTE: Same as last time, in order to open the html files on your web browser you will need to download the files to your computer
-## Ubuntu/Linux and Mac users: look at the *scp* command
-## Windows users: you can follow these instructions: https://stackoverflow.com/questions/6217055/how-can-i-copy-a-file-from-a-remote-server-to-using-putty-in-windows
 
 ```
 
@@ -132,7 +130,9 @@ Next we must convert the sam files made by bowtie2 to bam files, which are much 
 
 ```{bash, eval=FALSE}
 #?# Using *samtools view*, convert the sam file containing the result of the alignment of the iPSC input files to the reference genome (last step output) to bam format - 1.5 pt
-## Don't forget to include the header! (-h flag)
+## You will need the "-h" flag
+
+#?# What does the -h flag do? Why do you need to include it? - 2 pt
 
 
 ```
@@ -147,7 +147,7 @@ BAM files are much smaller and faster to access than SAM files, but unless the r
 ## Run the following command, changing the step_d_output.bam for the name of the bam output file you got from step c; this will print the read ID, chromosome, and genomic position for each read alignment; replace <step_c_output>.bam with the name of your bam file from the last step.
 samtools view <step_c_output>.bam | cut -f1,3,4 | head -5
 
-#?# Use the documentation format (# at the beginning of the line) to include the output of the command above (one per line): - 0.5pt
+#?# Use the comment character (# at the beginning of the line) to include the output of the command above (one per line): - 0.5pt
 
 
 
@@ -159,13 +159,13 @@ samtools view <step_c_output>.bam | cut -f1,3,4 | head -5
 ## View the read ID, chromosome, and genomic position for the first 5 reads, as before, but this time for the sorted bam file you just made.
 samtools view step_d_output.bam | cut -f1,3,4 | head -5
 
-#?# Use the documentation format (# at the beginning of the line) to include the output of the command above (one per line): 0.5 pt
+#?# Use the comment character (# at the beginning of the line) to include the output of the command above (one per line): - 0.5pt
 
 
 
 
 #?# What changed between the two files? Describe what is sambamba sort doing. - 1 pt
-## If needed, you can inspect more of each bam file by increasing the -n parameter for `head` in the above (just don't bother to include more than 5 lines for each in your submission).
+## If needed, you can inspect more of each bam file (e.g. using `more`, or by increasing the -n parameter for `head` in the above). Jjust don't bother to include more than 5 lines for each in your submission.
 
 
 ```
@@ -178,12 +178,12 @@ Next, we want to create a version of the BAM file that contains only uniquely ma
 ```{bash, eval=FALSE}
 
 #?# Use *sambamba view* to filter the recently sorted bam file (previous step output) to include only uniquely mapped reads - 1 pt
-## For this we will make use of the *-F* flag to filter the reads that were mapped and are not duplicates, by adding the following flag:
+## For this, we will make use of the *-F* flag to filter the reads that were mapped and are not duplicates, by adding the following flag:
 ## *  -F "[XS] == null and not unmapped and not duplicate"  *
 ## Important: Remember to add the header (-h flag) and to specify the output file format (-f flag) as bam
 
 
-#?# How many reads were there before filtering for uniquely mapped reads? How many are there now? Include the code to answer these questions and the answers to them below.
+#?# How many reads were there before filtering for uniquely mapped reads? How many are there now?  2 pt
 
 
 ```
@@ -298,7 +298,7 @@ When you are done, enter the code for your pipeline in the space provided below 
 ```{bash, eval=FALSE}
 
 
-#?# REPLACE THIS WITH YOUR SCRIPT
+#?# PLACE THE CONTENTS OF YOUR SCRIPT BELOW
 
 
 ```
