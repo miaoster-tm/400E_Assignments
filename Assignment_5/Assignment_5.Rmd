@@ -50,7 +50,7 @@ We will be using a couple of new tools this time. Before we move on to the pract
 
 ## 1. ChIP signal tracks 
 
-ChIP-seq experiments require a control against which to compare the ChIP signnal. Often this is the "input DNA", sheared chromatin that has not been immmunoprecipitated. For this assignment we are using an input and three different epigenetic marks. These histone modifications mark states of active (H3K27ac, H3K4me3) or inactive (H3K27me3) gene transcription and have different coverage of the genomic region where they are located. To better visualize the differences, we will create bigWig files from previously aligned, filtered and indexed bam files. BigWig files are indexed, compressed files that can be used to visualize signals across the genome. Here, we will be using it to graph the coverage across the genome.
+ChIP-seq experiments require a control against which to compare the ChIP signal. Often this is the "input DNA", sheared chromatin that has not been immmunoprecipitated. For this assignment we are using an input and three different epigenetic marks. These histone modifications mark states of active (H3K27ac, H3K4me3) or inactive (H3K27me3) gene transcription and have different coverage of the genomic region where they are located. To better visualize the differences, we will create bigWig files from previously aligned, filtered and indexed bam files. BigWig files are indexed, compressed files that can be used to visualize signals across the genome. Here, we will be using it to graph the coverage across the genome.
 
 
 ```{bash, eval=FALSE}
@@ -59,24 +59,21 @@ ChIP-seq experiments require a control against which to compare the ChIP signnal
 ## Tip: Remember to add the .bw extension to your specified output! 
 
 #?# Type the commands you use for converting each of the 4 bam files to bigwig files - 2 pts
-## input_chr3_subset.bam
-
+## H3K27ac_chr3_subset.bam
 
 ## H3K4me3_chr3_subset.bam
 
-
 ## H3K27me3_chr3_subset.bam
- 
 
-## H3K27ac_chr3_subset.bam
- 
+## input_chr3_subset.bam
 
+#?# Last time we used bed files to store mapped & annotated genomic features. ** Briefly ** explain the difference (if any) between bed files and bigwig files. - 1 pt
 
-### Follow this steps: 
+### Follow these steps: 
 
 ## 1. Copy the bigwig files from the previous steps to your computer 
 
-## 2.Load all the files bigwig signal track files onto IGV on your local computer, select the "autoscale" option for each file on their individual tracks
+## 2.Load all the files bigwig signal track files onto IGV on your local computer, right-click and select the "autoscale" option for each file on their individual tracks
 ## Tip: use the "File" tab to "load from file" option to choose the files from your computer directories
 
 ## 3. Change the visualization of the files to see the following position: ** chr3:93,470,124-93,471,058 **
@@ -84,13 +81,15 @@ ChIP-seq experiments require a control against which to compare the ChIP signnal
 
 #?# Explore this region by zooming in and out and navigating around. What do you see? Is there something similar across all the different files that stands out on this region? Is there anything peculiar about the DNA sequence at this locus?- 3 pt
 
-## Tip: sometimes track signal will be truncated to a pre-set maximum. If you right-click the track label (left) and select "autoscale", it will automatically adust the scales of the track to the range of your data. Try playing around with the track settings to see their effect.
+## Tip: sometimes track signal will be truncated to a pre-set maximum. If you right-click the track label (left) and select "autoscale", it will automatically adjust the scales of the track to the range of your data. Try playing around with the track settings to see their effect.
 
 ## 4. This file (/projects/bmeg/A5/hg38_blacklisted_regions.bed) contains the hg38 blacklisted regions. Load it into IGV along with all the other files. 
 
 ## 5. Look at the following region again (chr3:93,470,124-93,471,058). 
 #?# What can you say now about the similarities between the files at this region? In your own words, explain what a blacklisted region is and if you think this region should be excluded a ChIP-seq analysis. - 1.5 pt
 
+
+#?# Does it matter whether your bam files are mapped to the same genome build (hg19 vs hg38)? Why or why not? How could you confirm whether this is the case? - 1.5 pts
 
 ```
 
@@ -100,7 +99,7 @@ ChIP-seq experiments require a control against which to compare the ChIP signnal
 
 ## 2. Narrow vs Broad peaks 
 
-While exploring the bigwig files of the epigenetic marks on IGV, you probably noticed that they can look very different from each other and some of them reassemble the input more closely than others. Different epigenetic marks can have very different signatures based on their distribution patterns across the genome. When calling peaks, we often lump these into two different categories of reads: broad and narrow. Active transcription marks (H3K4me3 and H3K27ac) tend to form a sharper coverage peaks at transcription start sites (H3K27ac is also at enhancers), while repression marks cover a broader area (H3K27me3). Here, we're going to inspect their distributions relative to genes.
+While exploring the bigwig files of the epigenetic marks on IGV, you probably noticed that they can look very different from each other and some of them reassemble the input more closely than others. Different epigenetic marks can have very different signatures based on their distribution patterns across the genome. When calling peaks, we often lump these into two different categories of reads: broad and narrow. Activating transcription marks (H3K4me3 and H3K27ac) tend to form a sharper coverage peaks at transcription start sites (H3K27ac is also at enhancers), while repression marks cover a broader area (H3K27me3). Here, we're going to inspect their distributions relative to genes.
 
 ```{bash, eval=FALSE}
 
@@ -115,7 +114,7 @@ While exploring the bigwig files of the epigenetic marks on IGV, you probably no
 ## Use computeMatrix to compute a matrix for the signal tracks for each histone modification outlined above (which we will use to create a plot in the following step), with the following criteria: 
 
 ## - We will use the regions in reference_genes.bed located under the /projects/bmeg/A5/ directory as the basis for the plot.
-## - Include the surrounding 1kb
+## - Include the surrounding 3kb
 ## - Use all 3 input-normalized bigWig files (H3K4me3, H3K27ac, H3K27me3) as signal tracks
 #?# Write the command you used to run it below: - 1.5 pt
 
@@ -126,10 +125,10 @@ While exploring the bigwig files of the epigenetic marks on IGV, you probably no
 ## Now that the scores matrix has been computed, we can use it to create a heatmap to provide a better visual representation of the reads distrubution across our reference genes (provided in the reference_genes.bed file)
 ## Use the deepTools ** plotHeatmap ** function to create a heatmap following this criteria: 
 ## - Use the matrix from the previous point
-## - Use the Blues colormap
+## - Use the Greens colormap
 ## - Create 3 clusters within the heatmap according to the patterns of the reads distrubution across the files using heirarchical clustering
 #?# Type the command you used to run it below: - 1.5
-#?# Add a screenshot of the plot right after this code chunk using Rmarkdown syntaxis - 1 pt 
+#?# Add a screenshot of the plot right after this code chunk using Rmarkdown syntax - 1 pt 
 
 
 
@@ -180,7 +179,7 @@ Now we want to identify enriched regions of the genome for each of our three his
 
 Macs2 calls the peaks by analyzing the enrichments of sequences in the genome compared to the input. The algorithm uses different measures to ensure the enrichments are statistically significant and make biological sense based on the sequence length, the expected peaks (narrow or broad) and other parameters. We will focus on the H3K4me3 mark to visualize how are the peaks are identified.
 
-```{}
+```{bash, eval=FALSE}
 
 ## 1. Copy the H3K4me3 .narrowPeak file to your local computer
 ## 2. Open IGV with and load the hg38 reference 
@@ -190,9 +189,9 @@ Macs2 calls the peaks by analyzing the enrichments of sequences in the genome co
 ### b. Input  bigwig file that you created in section 1 
 ## Note: remember to autoscale each file track!
 
-## 4. Go to this position: * chr3:44,608,952-44,670,849 *
+## 4. Go to this position: ** chr3:27,610,219-27,740,792 **
 
-#?# Compare the input and H3K4me3 signal trakcs (a and b), are there regions that you consider to have an enriched signal in the H3K4me3 track compared to the input? If yes, how many?- 0.5 pt 
+#?# Compare the input and H3K4me3 signal tracks (a and b), are there regions that you consider to have an enriched signal in the H3K4me3 track compared to the input? If yes, how many?- 0.5 pt 
 
 
 #?# Why do you consider those regions to have an enrichment? Would you need to confirm that the enrichment is statistically significant? If so, what do you think would be a way to test for the significance (you can mention the tools used on this assignment or explain conceptually what would you do to confirm an enrichment)? - 1 pt
@@ -209,6 +208,8 @@ Macs2 calls the peaks by analyzing the enrichments of sequences in the genome co
 
 #?# Are these visually enriched regions you selected, found in file d (narrowPeak)? What does that mean? - 1 pt
 
+#?# If the visually enriched regions were not found in file d (narrowPeak), what would you conclude? - 1 pt 
+
 #?# Add a screenshot of your IGV session right after this chunk, using Rmarkdown syntax - 1pt
 
 ```
@@ -224,7 +225,7 @@ For this assignment, we are working with 3 different epigenetic marks: H3K4me3, 
 ```{bash, eval=FALSE}
 
 
-### Create 3 heatmaps following the specifications you used on part 2 (one for the peaks called for each epigenetic mark, both containing data from all three tracks). Use the peak files of each of the epigenetic marks as reference files. Use ONLY the non-input normalized files: H3K27ac_norm.bw H3K27me3_norm.bw H3K4me3_norm.bw
+### Create 3 heatmaps following the specifications you used on part 2 (one for the peaks called for each epigenetic mark, both containing data from all three tracks). Use the peak files of each of the epigenetic marks as reference files (instead of the reference_genes.bed file used in part 2) . Use ONLY the input normalized files: H3K27ac_norm.bw H3K27me3_norm.bw H3K4me3_norm.bw
 #?# Write the commands you used to compute the matrices and create the heatmaps below: - 3 pt
 
 
@@ -237,7 +238,7 @@ For this assignment, we are working with 3 different epigenetic marks: H3K4me3, 
 
 
 
-```{}
+```{bash, eval=FALSE}
 
 #?# Do you see an overlap between the peaks of different epigenetic marks? Which epigenetic marks? - 1 pt
 
