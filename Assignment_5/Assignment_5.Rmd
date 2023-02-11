@@ -8,7 +8,7 @@ output:
 
 # Assignment Overview
 
-By now you must have become vaguely familiar with ChIP-seq data but might be a little confused about what to do after the alignment. Well, this assignment's aim is to walk you through a ChIP-seq pipeline post-alignment. We will be analyzing 3 different histone modification marks (H3K27me3, H3K4me3 and H3K27ac). In order to identify the enrichments for each epigenetic mark, we also need to use the *input* which represents the DNA content of the sheared chromatin sample prior to immunoprecipitation. All the files can be found under the following path: **/projects/bmeg/A5/** . 
+By now you must have become vaguely familiar with ChIP-seq data but might be a little confused about what to do after the alignment. This assignment's aim is to walk you through a ChIP-seq pipeline post-alignment. We will be analyzing three different histone modification marks (H3K27me3, H3K4me3 and H3K27ac). In order to identify the enrichments for each epigenetic mark, we also need to use the *input* which represents the DNA content of the sheared chromatin sample prior to immunoprecipitation. All the files can be found under the following path: **/projects/bmeg/A5/** . 
 
   - H3K27me3 (H3K27me3_chr3_subset.bam) 
 
@@ -26,6 +26,8 @@ A couple of things to remember:
 - Double check that all the files have been uploaded to your repository and that you are able to visualize the html-like version on GitHub. 
 
 - Be mindful of your space on the server! Delete ALL unnecessary files and keep a clean environment. 
+
+- Make sure you add your and your partner's names and student IDs to the end of the assignment.
 
 
 ## 0. Getting Started 
@@ -243,13 +245,13 @@ For this assignment, we are working with 3 different epigenetic marks: H3K4me3, 
 #?# Do you see an overlap between the peaks of different epigenetic marks? Which epigenetic marks? - 1 pt
 
 
-#?# Why do you think these epigenetic marks overlap? - 1 pt
+#?# Why do these epigenetic marks overlap? - 1 pt
 
 
-#?# Explain the pattern you see for the peaks of H3K27me3, do they look similar or different to the other two marks? Why do you think this happens? - 1pt
+#?# Explain the pattern you see for the peaks of H3K27me3, do they look similar or different to the other two marks? Why do you think this happens? - 1 pt
 
 
-#?# Why do you think the borders of the elements have such clearly-defined borders with respect to the ChIP signal? -1 pt
+#?# Why do some of the ChIP peaks have such clearly defined borders for some ChIP signals? - 1 pt
 
 ```
 
