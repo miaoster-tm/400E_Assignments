@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Assignment overview
 
-*Today we will be looking at a differential ATAC-seq dataset between cells treated with an anti BAF protac and control (untreated) cells. The cell type is HAP1, a cancer cell line with a near-haploid genome. We will use this dataset to explore differential analysis. *
+*Today we will look at a differential ATAC-seq dataset between cells treated with an anti BAF protac and control (untreated) cells. The cell type is HAP1, a cancer cell line with a near-haploid genome. We will use this dataset to explore differential analysis. *
 
 *The GEO entry is located here, where you can read more about the experiments: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE148175 *
 
@@ -38,6 +38,12 @@ library(Biostrings)
 ```
 
 
+*ATAC-seq (Assay for Transposase-Accessible Chromatin using sequencing) produces reads which are generally in a fastq format, similar to the files you used in previous assignments. The reads in the fastq file are then aligned to the genome and a peak calling software is used to identify peaks. *
+
+*In this assignment you will be downloading a counts matrix where each row corresponds to a peak (annotated by the genomic region) and each column corresponds to a treatment (control/no treatment, DMSO, BRM014 etc.) and timepoint and replicate. The value in a given cell corresponds to the number of reads for found for a chromatin region in at a given timepoint, treatment and replicate.*
+
+*The file we will be using today can be found at the GEO entry. We have copied the relevant ftp link below: *
+
 ```{r}
 
 #download the data
@@ -46,6 +52,25 @@ atacSeqData = read.table(textConnection(readLines(gzcon(url("ftp://ftp.ncbi.nlm.
 
 ```
 
+
+### `#?#` *Recall that each row is a peak and each column is a treatment/replicate/timepoint triplet. Report the value listed for chr1:25429953-25431146 in the BR_protac treatment after 6 hours. - 0.25 pt*
+```{r}
+# find the values corresponding to BR_protac after 6 hours for the peak at chr1:25429953-25431146 .
+
+```
+
+### `#?#` *Compare the value(s) with those for the control treatment at the same time and position. Are the counts higher or lower than the count for BR_protac? - 0.25 pt *
+```{r}
+
+```
+
+### `#?#` *Does a high value for a given position in the count matrix indicate high accessibility or low accessibility for that region? - 0.5 pt* 
+```{r}
+
+```
+
+
+*Now we will attempt to order the metadata contained within each of the various column headers of the counts matrix. We have provided the code for this below:*
 
 ```{r}
 
@@ -62,14 +87,13 @@ samples$time[grepl("min",samples$timeName)]=samples$time[grepl("min",samples$tim
 ```
 
 
-
 # Part 1: understanding the experiment
 
-*Now using `samples` make a plot showing the experimental design, with time on the x axis, treatment on the y axis, and one plot on the left and one on the right for the two replicates (e.g. using `facet_grid`).*
+*Now using `samples` make a plot showing the experimental design, with time on the x axis, treatment on the y axis. If no sample for the time:treatment pair exists the point should be absent. Use the colour of the points to differentiate between presence in one replicate, the first replicate only or the second replicate only. *
 
 ### `#?#` *Make the above plot. Each point should represent one of the samples.  - 1 pt*
 ```{r}
-#here, if the point is there, it means such a sample exists, if absent it means that there is no such sample
+#Remember: You should only have a point at a given time & position if such a sample exists in the dataframe. 
 
 ```
 
@@ -79,7 +103,7 @@ samples$time[grepl("min",samples$timeName)]=samples$time[grepl("min",samples$tim
 
 # Part 2: QC
 
-*With most genomics data, it is important both that samples have sufficient coverage, and that the samples have similar coverage. Either case can lead to underpowered analysis, or misleading results. Calcualte the read coverage for each sample. *
+*With most genomics data, it is important both that samples have sufficient coverage, and that the samples have similar coverage. Either case can lead to underpowered analysis, or misleading results. Calculate the read coverage for each sample. *
 
 ### `#?#` Make a plot with read coverage on the y-axis (total number of reads) and the samples on the x-axis. - 3 pt*
 
@@ -103,11 +127,12 @@ samples$time[grepl("min",samples$timeName)]=samples$time[grepl("min",samples$tim
 
 ```
 
-*In cases where samples have vastly different coverage, you can potentially down-sample the higher-coverage samples. Sometimes, throwing out the data in this way can also introduce new problems, so we're going to stick with the data we have.*
+### `#?#` *Suppose you have two samples only one of which has sufficient coverage, but having significantly more coverage than the other. Briefly discuss the advantage(s) and disadvantage(s) of downsampling one to make the coverage more similar between samples. - 3 pt*
+
 
 *For this assignment, we will look only at BI_protac vs control data. *
 
-### `#?#` *Create a new data.frame containing only the BI_protac and control samples - 1 pt*
+### `#?#` *Create a new data.frame containing only the BI_protac and control samples. - 1 pt*
 ```{r}
 
 
@@ -131,12 +156,17 @@ samples$time[grepl("min",samples$timeName)]=samples$time[grepl("min",samples$tim
 
 ```
 
-### `#?#` *Why do you think log-transforming is usually performed when looking at genomics data? What about adding 1 before log transforming? - 2 pt*
+### `#?#` *Why do you think log-transforming is usually performed when looking at genomics data? - 1 pt*
 
+### `#?#` *Why do you think we add 1 before log transforming? - 1 pt* 
 
-### `#?#` *Some regions have very large CPMs. Inspect the peaks for which CPM>400. What do you notice about them? 3 pt*
+### `#?#` *Some regions have very large CPMs. Seperate the peaks for which CPM>300. -1.5 pt*
 ```{r}
 
+```
+
+### `#?#` *Make a bar plot of the number peaks for which CPM>300 found on each chromosome. What do you notice? - 1.5 pt*
+```{r}
 ```
 
 *Normally, we would remove some of these regions before continuing (and would redo the above steps). Since this is an assignment, we will continue with the data as-is.*
@@ -155,8 +185,7 @@ samples$time[grepl("min",samples$timeName)]=samples$time[grepl("min",samples$tim
 
 *It is common to exclude some regions from analysis. For instance, we won't be able to robustly identify those that are differential but have low coverage even if they are truly differential, so there is no point testing these. We will also remove mitochondrial regions, a common contaminant of ATAC-seq data.*
 
-
-### `#?#` *Filter your data, retaining only regions where the average counts per sample is greater than 10, and also remove mitochondrial regions - 3 pt*
+### `#?#` *Filter your data, retaining only regions where the average counts per sample is greater than 20, and also remove mitochondrial regions - 3 pt*
 ```{r}
 
 
@@ -168,7 +197,6 @@ samples$time[grepl("min",samples$timeName)]=samples$time[grepl("min",samples$tim
 ```{r}
 
 ```
-
 
 # Part 3: Differential ATAC
 
@@ -213,6 +241,8 @@ allDEStatsPairedTime6vs24$region=row.names(allDEStatsPairedTime6vs24)
 
 ```
 
+### `#?#` *Briefly explain what you are looking at. What do the axes show? What is the loess line for? - 2 pts*
+
 *Now we're going to test loess normalization instead.* 
 
 
@@ -232,7 +262,7 @@ allDEStatsPairedTime6vs24$region=row.names(allDEStatsPairedTime6vs24)
 ```
 
 ### `#?#` *What was the first normalization method? What changed in the MA plots? Which analysis do you think is more reliable and why? - 4 pt*
-
+*Hint: Think about what loess normalization corrects for.*
 
 
 # Part 4: GC bias
@@ -352,6 +382,3 @@ Following completion of your assignment, please fill out this section with the a
 Authors: Name1 (studentID1) and Name2 (studentID2)
 
 Contributions: (example) N1 and N2 worked together on the same computer to complete the assignment. N1 typed for the first half and N2 typed for the second half. 
-
-
-
