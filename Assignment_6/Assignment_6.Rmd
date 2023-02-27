@@ -160,7 +160,7 @@ samples$time[grepl("min",samples$timeName)]=samples$time[grepl("min",samples$tim
 
 ### `#?#` *Why do you think we add 1 before log transforming? - 1 pt* 
 
-### `#?#` *Some regions have very large CPMs. Seperate the peaks for which CPM>300. -1.5 pt*
+### `#?#` *Some regions have very large CPMs. Seperate the peaks for which any of the samples of interest has CPM>300. -1.5 pt*
 ```{r}
 
 ```
