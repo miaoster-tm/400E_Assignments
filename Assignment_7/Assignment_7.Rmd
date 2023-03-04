@@ -190,7 +190,7 @@ PGS are calculated by multiplying the effect sizes of each SNP by the dosage of 
 ## Both are located in the A7 directory on github.
 
 ## Using the base PRS formula outlined below, calculate the Tapas enjoyability PGS for the individuals in the Mini Cohort 
-#?# Include your rationale and the documented code you used - 5pt
+#?# Include your rationale and the code you used (document your code with comments!) - 5pt
 
 
 
