@@ -40,7 +40,7 @@ Before we can start working on the genetic data, we need to ensure that the qual
 
 ```{bash, eval=FALSE}
 
-## Using only one run of plink 1.9 (with different flags)
+## Using only one run of plink 1.9 (i.e. only calling plink1.9 once with multiple flags):
 ## 1. Filter out -SNPs- with more than 5% missingness
 ## 2. Filter out -variants- with less than 1% MAF
 ## 3. Filter out -samples- with more than 2% missingness
@@ -64,6 +64,7 @@ We first need to ensure that only the most informative genetic variants are used
    2. **LD pruning:** Similarly, LD causes redundancy even outside the particularly problematic high-LD regions. Thus, we will use LD-pruning to identify variants that are in LD, and select one per block.
    
 ```{bash, eval=FALSE}
+#?# Briefly explain what Linkage Disequilibrium is, and why it will cause problems for our analysis (PCA). - 2pts
 
 ## Using only one run of plink 1.9 (with different flags)
 ## 1. Filter out the high-LD regions contained in the --high_LD_regions_hg19.txt-- file, located in /projects/bmeg/A7/
@@ -144,7 +145,7 @@ Imputation of genetic data is a very computationally intensive analysis, that ca
 
 ```{r}
 ## Load the Mini_cohort_chr17_imputation_results.info.gz file to your Rstudio environment 
-chr_info <- read.table(file = "/Users/paola.arguello/Documents/BMEDG400/Assignment_Keys/2021Jan/Assignment_7/Mini_cohort_chr17_imputation_results.info.gz",
+chr_info <- read.table(file = "400E_Assignments/Assignment_7/Mini_cohort_chr17_imputation_results.info.gz",
                              header = TRUE)
 ## Use the information in the file to answer the following questions. Accompany each of the answers with the code you used to get to them and a brief explanation of your thought process behind.
 #?# What is the percentage of imputed SNPs? 0.5 pt
