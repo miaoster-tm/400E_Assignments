@@ -243,12 +243,9 @@ conda create -n nextflow
 
 ## Type the following command into your terminal:
 # conda config --show channels 
-#?# Paste the output below - 0.5 pts
-channels:
-  - conda-forge
-  - bioconda
-  - defaults
-#?# Install nextflow into your anaconda environment and type the command you used below - 1 pt
+# Paste the output below 
+
+# Install nextflow into your anaconda environment and type the command you used below - 1 pt
 conda install nextflow
 
 ```
@@ -271,7 +268,7 @@ First we need to find genomic data from a patient. For this assignment we will b
 
 ```{bash,eval=FALSE}
 ## pgsc_calc does not take VCF or bfiles directly as input, but rather a samplesheet csv file which lists all of the data sets we wish to calculate scores for. 
-#?# Generate an appropriate sample sheet for the VCF files located in the projects/bmeg/A7 directory - 2 pts
+# Generate an appropriate sample sheet for the VCF files located in the projects/bmeg/A7 directory
 # An example of a valid samplesheet file would be :
 
 #sampleset,vcf_path,bfile_path,pfile_path,chrom
